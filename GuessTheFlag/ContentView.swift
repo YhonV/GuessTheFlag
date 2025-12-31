@@ -7,6 +7,21 @@
 
 import SwiftUI
 
+struct FlagImage: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            .clipShape(.capsule)
+            .shadow(radius: 5)
+    }
+}
+
+extension View {
+    func flagStyle() -> some View {
+        modifier(FlagImage())
+    }
+}
+
+
 struct ContentView: View {
     @State private var showingScore: Bool = false
     @State private var scoreTitle: String = ""
@@ -45,8 +60,7 @@ struct ContentView: View {
                             flagTapped(number)
                         } label: {
                             Image(countries[number])
-                                .clipShape(.capsule)
-                                .shadow(radius: 5)
+                                .flagStyle()
                         }
                     }
                 }
@@ -103,7 +117,7 @@ struct ContentView: View {
     func resetTheGame() {
         countries.shuffle()
         score = 0
-        }
+    }
 }
 
 #Preview {
